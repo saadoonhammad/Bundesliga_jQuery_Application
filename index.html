@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />  
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.5.0/MarkerCluster.css" /> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.5.0/MarkerCluster.Default.css" />
+
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+  <style type="text/css">
+    #mapPage, #map {
+        height: 100%;
+    }
+
+    #map-content{
+        height: 100%;
+        width: 100%;
+        padding: 0px; 
+        margin:0px;
+        z-index: -1;
+        float: left;
+
+    }
+    #choice{
+       
+        position: absolute; 
+        height: 100%;
+        float: left;
+        width: 20%;
+    }
+</style>
+
+
+
+</head>
+<body>
+  <div data-role="page" id="home1">
+    <div data-role="header">
+      <a id="locate" href="#" data-icon="location" class="ui-btn-right">Map Page</a>
+      
+      <h1>Bundesliga</h1>
+      
+    </div>
+    <div data-role="content">
+      <p>The Bundesliga (German: [ˈbʊndəsˌliːɡa] ; lit.  'Federal League', sometimes referred to as die Fußball-Bundesliga [ˌfuːsbal-] or 1. Bundesliga [ˌeːɐ̯stə-]) is a professional association football league in Germany and the football league with the highest average stadium attendance worldwide. At the top of the German football league system, the Bundesliga is Germany's primary football competition. The Bundesliga comprises 18 teams and operates on a system of promotion and relegation with the 2. Bundesliga. Seasons run from August to May. Most games are played on Saturdays and Sundays, with a few games played on weekdays. All of the Bundesliga clubs qualify for the DFB-Pokal. The winner of the Bundesliga qualifies for the DFL-Supercup.</p>  
+            
+        <ul  data-role="listview"> 
+              <li><a id="teams" href="#">Show Teams</a></li>
+              <li><a id="topScorers" href="#">Top Goal Scorers</a></li>
+              <li><a id="showstadiums" href="#">Stadiums</a></li>
+              <li><a id="fixtures" href="#">Fixtures</a></li>
+
+        </ul>
+
+</div>
+</div>
+    <div data-role="page" id="home">
+      <div data-role="header" data-add-back-btn='true'>
+   
+          <h1>Bundesliga Teams</h1>
+
+        </div>
+        <div data-role="content">
+         
+            <ul id="data" data-role="listview"> 
+
+            </ul>
+
+ </div>
+    </div>
+    <div data-role="page" id="stadiumsPage">
+      <div data-role="header" data-add-back-btn='true'>
+ 
+          <h1>Stadiums</h1>
+
+        </div>
+        <div data-role="content">
+         
+            <ul id="stadiumsData" data-role="listview"> 
+
+            </ul>
+
+ </div>
+    </div>
+
+    <div data-role="page" id="fixturePage">
+      <div data-role="header" data-add-back-btn='true'>
+      <h1>Fixtures</h1>
+
+      </div>
+      <div data-role="content">   
+        <form class="ui-filterable">
+          <input id="filterBasic-input" data-type="search">
+      </form>
+      <ul id="data2" data-role="listview" data-filter="true" data-input="#filterBasic-input">
+      
+      </ul>
+</div>
+  </div>
+
+    <div data-role="page" id="detail">
+        <div data-role="header" data-add-back-btn='true'>
+        <a id="home_btn" href="#" data-icon="home" class="ui-btn-right">Home Page</a>
+          <h1>Team Stats</h1>
+    </div>
+        <div data-role="content" >
+          
+          <ul data-role="listview" data-inset="true">
+            <li><span id="Name"></span></li>
+            <li><span id="TablePosition"></span></li>
+            <li><span id="Points"></span></li>
+            <li><span id="Won"></span></li>
+            <li><span id="Lost"></span></li>
+            <li><span id="Draw"></span></li>
+            <li><span id="GoalsFor"></span></li>
+            <li><span id="GoalsAgainst"></span></li>
+            <li><span id="GoalDifference"></span></li>
+
+          </ul>
+        </div>
+
+    </div>
+
+    <div data-role="page" id="stadiumsDetail">
+      <div data-role="header" data-add-back-btn='true'>
+      <a id="home_btn" href="#" data-icon="home" class="ui-btn-right">Home Page</a>
+        <h1>Team Stats</h1>
+  </div>
+      <div data-role="content" >
+        
+        <ul data-role="listview" data-inset="true">
+          <li><span id="Name"></span></li>
+          <li><span id="TablePosition"></span></li>
+          <li><span id="Points"></span></li>
+
+
+        </ul>
+      </div>
+
+  </div>
+    
+
+  <div data-role="page" id="goalTable">
+    <div data-role="header" data-add-back-btn='true'>
+     <h1>Bundesliga Top Goal Scorers</h1>
+
+    </div>
+    <div data-role="content">
+     
+      <table data-role="table" id="goals-table" data-mode="reflow" class="ui-responsive">
+          <thead>
+            <tr>
+              
+              <th data-priority="1">Player Name</th>
+              <th data-priority="5">Team Name</th>
+              <th data-priority="2">Goals Scored</th>
+              <th data-priority="3">Position</th>
+              <th data-priority="4">Country</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+
+            </tr>
+ 
+      
+          </tbody>
+        </table>
+
+</div>
+</div>
+
+<div data-role="page" id="mapPage" > 
+  <div data-role="header" data-position="fixed" >
+    <a id="back" href="#" data-icon="fixtures" class="ui-btn ui-corner-all ui-shadow ui-btn-left ui-toolbar-back-btn ui-icon-carat-l ui-btn-icon-left" data-rel="back">Back</a>
+
+      <h1>Stadiums Map</h1>
+  </div> 
+
+  <div id="map-content" data-role="content">
+<div id="map"></div>
+
+
+</div>
+</div> 
+
+  <script src="myscript.js"></script>
+
+</body>
+</html>
